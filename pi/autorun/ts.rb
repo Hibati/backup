@@ -3,7 +3,7 @@ require "uri"
 require 'json'
 load 'createCH.rb'
 
-    userkey = 'O8ZGSB6CPI3OBODH'
+    userkey = 'ML96T5X7IBRSY4IY'
     thingspeak = 'http://www.tsiots.com:3000/'
     
     Struct.new("Device", :id, :address ,:existence ,:name, :api_key)
@@ -24,6 +24,7 @@ load 'createCH.rb'
        str2 =s['metadata']
        
         #f.puts s['id'].to_s + " " + str2
+        
         ary.push( Struct::Device.new(s['id'], str2, false ,s['name'],s['api_keys'][0]['api_key']))
     end
     #}
@@ -63,14 +64,16 @@ load 'createCH.rb'
     
     
     
-    
+    num = 0
     open('ble_params.txt', 'w') { |fp|
     
         ary.each do |a|
         
-        
+            
             if a[:existence] == true
-                fp.puts  "-b  " + a[:address]  + " -t random " + "-I " + a[:id].to_s  + " " + a[:api_key] + " " + thingspeak + " " + a[:name]
+                x = num / 5
+                fp.puts " -i hci" + x.to_s  + " -b  " + a[:address]  + " -t random " + "-I " + a[:id].to_s  + " " + a[:api_key] + " " + thingspeak + " " + a[:name]
+                num = num+1
             end
         end
     }
