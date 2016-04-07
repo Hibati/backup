@@ -1,5 +1,5 @@
 #!bin/bash
-sudo ./ble_scan
+sudo /home/pi/Desktop/ble_scan
 ruby ts.rb
 
 while read line; do
